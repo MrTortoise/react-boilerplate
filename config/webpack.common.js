@@ -16,7 +16,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer')
+const autoprefixer = require('autoprefixer');
+const HtmlElementsPlugin = require('./html-elements-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 
@@ -89,8 +91,6 @@ module.exports = function (options) {
         },
 
         plugins: [
-            new ExtractTextPlugin('[name].css'),
-
 
             new AssetsPlugin({
                 path: helpers.root('public'),
@@ -146,6 +146,14 @@ module.exports = function (options) {
                 defaultAttribute: 'defer'
             }),
 
+            new HtmlWebpackPlugin({
+                template: 'index.html',
+                title: METADATA.title,
+                chunksSortMode: 'dependency',
+                metadata: METADATA,
+                inject: 'head'
+            }),
+
             /*
              * Plugin: HtmlElementsPlugin
              * Description: Generate html tags based on javascript maps.
@@ -167,10 +175,10 @@ module.exports = function (options) {
              *  <%= webpackConfig.htmlElements.headTags %>
              *
              * Dependencies: HtmlWebpackPlugin
-             //  */
-            // new HtmlElementsPlugin({
-            //     headTags: require('./head-config.common')
-            // }),
+               */
+             new HtmlElementsPlugin({
+                 headTags: require('./head-config.common')
+             }),
 
         ],
 

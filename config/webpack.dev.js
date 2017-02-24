@@ -10,6 +10,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /**
  * Webpack Constants
@@ -116,6 +117,7 @@ module.exports = function (options) {
             new LoaderOptionsPlugin({
                 debug: true
             }),
+            new ExtractTextPlugin('[name].css'),
 
 
         ],

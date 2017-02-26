@@ -181,6 +181,11 @@ module.exports = function (options) {
              }),
 
         ],
+        externals: {
+            'cheerio': 'window',
+            'react/lib/ExecutionEnvironment': true,
+            'react/lib/ReactContext': true,
+        },
 
         node: {
             global: true,
